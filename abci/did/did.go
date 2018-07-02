@@ -134,17 +134,7 @@ func (app *DIDApplication) DeliverTx(tx []byte) (res types.ResponseDeliverTx) {
 	txString := string(tx)
 	parts := strings.Split(string(txString), "|")
 
-	methodByte, err := base64.StdEncoding.DecodeString(parts[0])
-	if err != nil {
-		app.logger.Error(err.Error())
-		return ReturnDeliverTxLog(code.DecodingError, err.Error(), "")
-	}
 	paramByte, err := base64.StdEncoding.DecodeString(parts[1])
-	if err != nil {
-		app.logger.Error(err.Error())
-		return ReturnDeliverTxLog(code.DecodingError, err.Error(), "")
-	}
-	nonceByte, err := base64.StdEncoding.DecodeString(parts[2])
 	if err != nil {
 		app.logger.Error(err.Error())
 		return ReturnDeliverTxLog(code.DecodingError, err.Error(), "")
@@ -155,9 +145,9 @@ func (app *DIDApplication) DeliverTx(tx []byte) (res types.ResponseDeliverTx) {
 		return ReturnDeliverTxLog(code.DecodingError, err.Error(), "")
 	}
 
-	method := string(methodByte)
+	method := string(parts[0])
 	param := string(paramByte)
-	nonce := string(nonceByte)
+	nonce := string(parts[2])
 	signature := string(parts[3])
 	nodeID := string(nodeIDByte)
 
@@ -188,17 +178,7 @@ func (app *DIDApplication) CheckTx(tx []byte) (res types.ResponseCheckTx) {
 	txString := string(tx)
 	parts := strings.Split(string(txString), "|")
 
-	methodByte, err := base64.StdEncoding.DecodeString(parts[0])
-	if err != nil {
-		app.logger.Error(err.Error())
-		return ReturnCheckTx(false)
-	}
 	paramByte, err := base64.StdEncoding.DecodeString(parts[1])
-	if err != nil {
-		app.logger.Error(err.Error())
-		return ReturnCheckTx(false)
-	}
-	nonceByte, err := base64.StdEncoding.DecodeString(parts[2])
 	if err != nil {
 		app.logger.Error(err.Error())
 		return ReturnCheckTx(false)
@@ -209,9 +189,9 @@ func (app *DIDApplication) CheckTx(tx []byte) (res types.ResponseCheckTx) {
 		return ReturnCheckTx(false)
 	}
 
-	method := string(methodByte)
+	method := string(parts[0])
 	param := string(paramByte)
-	nonce := string(nonceByte)
+	nonce := string(parts[2])
 	signature := string(parts[3])
 	nodeID := string(nodeIDByte)
 

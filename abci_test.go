@@ -112,11 +112,11 @@ var tendermintAddr = getEnv("TENDERMINT_ADDRESS", "http://localhost:45000")
 
 func callTendermint(fnName []byte, param []byte, nonce []byte, signature []byte, nodeID []byte) (interface{}, error) {
 	var path string
-	path += base64.StdEncoding.EncodeToString(fnName)
+	path += string(fnName)
 	path += "|"
 	path += base64.StdEncoding.EncodeToString(param)
 	path += "|"
-	path += base64.StdEncoding.EncodeToString(nonce)
+	path += string(nonce)
 	path += "|"
 	path += base64.StdEncoding.EncodeToString(signature)
 	path += "|"

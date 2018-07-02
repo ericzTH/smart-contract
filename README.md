@@ -152,7 +152,7 @@ docker-compose -f docker/docker-compose.yml up
 
 # Broadcast tx format
 ```sh
-base64(functionName)|base64(parameter)|base64(nonce)|base64(sign(param+nonce))|base64(nodeID)
+functionName|base64(parameter)|nonce|base64(sign(param+nonce))|base64(nodeID)
 ```
 
 # Query format
