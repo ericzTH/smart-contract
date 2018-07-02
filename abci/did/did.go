@@ -131,17 +131,35 @@ func (app *DIDApplication) DeliverTx(tx []byte) (res types.ResponseDeliverTx) {
 		}
 	}()
 
-	txString, err := base64.StdEncoding.DecodeString(string(tx))
-	if err != nil {
-		return ReturnDeliverTxLog(code.DecodingError, err.Error(), "")
-	}
+	txString := string(tx)
 	parts := strings.Split(string(txString), "|")
 
-	method := parts[0]
-	param := parts[1]
-	nonce := parts[2]
-	signature := parts[3]
-	nodeID := parts[4]
+	methodByte, err := base64.StdEncoding.DecodeString(parts[0])
+	if err != nil {
+		app.logger.Error(err.Error())
+		return ReturnDeliverTxLog(code.DecodingError, err.Error(), "")
+	}
+	paramByte, err := base64.StdEncoding.DecodeString(parts[1])
+	if err != nil {
+		app.logger.Error(err.Error())
+		return ReturnDeliverTxLog(code.DecodingError, err.Error(), "")
+	}
+	nonceByte, err := base64.StdEncoding.DecodeString(parts[2])
+	if err != nil {
+		app.logger.Error(err.Error())
+		return ReturnDeliverTxLog(code.DecodingError, err.Error(), "")
+	}
+	nodeIDByte, err := base64.StdEncoding.DecodeString(parts[4])
+	if err != nil {
+		app.logger.Error(err.Error())
+		return ReturnDeliverTxLog(code.DecodingError, err.Error(), "")
+	}
+
+	method := string(methodByte)
+	param := string(paramByte)
+	nonce := string(nonceByte)
+	signature := string(parts[3])
+	nodeID := string(nodeIDByte)
 
 	app.logger.Infof("DeliverTx: %s, NodeID: %s", method, nodeID)
 
@@ -167,17 +185,35 @@ func (app *DIDApplication) CheckTx(tx []byte) (res types.ResponseCheckTx) {
 	}
 	// ---------------------
 
-	txString, err := base64.StdEncoding.DecodeString(strings.Replace(string(tx), " ", "+", -1))
-	if err != nil {
-		return ReturnCheckTx(false)
-	}
+	txString := string(tx)
 	parts := strings.Split(string(txString), "|")
 
-	method := parts[0]
-	param := parts[1]
-	nonce := parts[2]
-	signature := parts[3]
-	nodeID := parts[4]
+	methodByte, err := base64.StdEncoding.DecodeString(parts[0])
+	if err != nil {
+		app.logger.Error(err.Error())
+		return ReturnCheckTx(false)
+	}
+	paramByte, err := base64.StdEncoding.DecodeString(parts[1])
+	if err != nil {
+		app.logger.Error(err.Error())
+		return ReturnCheckTx(false)
+	}
+	nonceByte, err := base64.StdEncoding.DecodeString(parts[2])
+	if err != nil {
+		app.logger.Error(err.Error())
+		return ReturnCheckTx(false)
+	}
+	nodeIDByte, err := base64.StdEncoding.DecodeString(parts[4])
+	if err != nil {
+		app.logger.Error(err.Error())
+		return ReturnCheckTx(false)
+	}
+
+	method := string(methodByte)
+	param := string(paramByte)
+	nonce := string(nonceByte)
+	signature := string(parts[3])
+	nodeID := string(nodeIDByte)
 
 	app.logger.Infof("CheckTx: %s, NodeID: %s", method, nodeID)
 

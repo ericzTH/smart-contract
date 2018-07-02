@@ -148,13 +148,11 @@ docker-compose -f docker/docker-compose.yml up
 
 3.  When IDP node and RP node run on separate machines, please edit `seeds` in `config/tendermint/{RP or IdP}/config/config.toml` to match address of another machines.
 
-## Technical details to connect with `api`
-
-Interact with `api` in BASE64 format data.
+# Technical details to connect with `api`
 
 # Broadcast tx format
 ```sh
-functionName|parameter|nonce|base64(sign(param+nonce))|nodeID
+base64(functionName)|base64(parameter)|base64(nonce)|base64(sign(param+nonce))|base64(nodeID)
 ```
 
 # Query format
