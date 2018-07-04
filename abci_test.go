@@ -42,7 +42,7 @@ import (
 	"testing"
 
 	"github.com/ndidplatform/smart-contract/abci/did"
-	"github.com/tendermint/tmlibs/common"
+	"github.com/tendermint/tendermint/libs/common"
 )
 
 type ResponseTx struct {
@@ -2783,9 +2783,9 @@ func TestSetValidator(t *testing.T) {
 	ndidNodeID := "NDID"
 
 	var param did.SetValidatorParam
-	param.PublicKey = `7/ThXSVOL7YkcpcJ8iatM+EXOlXv8aFtpsVAmWwMdC4=`
+	param.PublicKey = `qJ0HsJvzHz/CAEBMCpvqfIpMIktfOsN0kh5O3+d0bks=`
 	// param.PublicKey = `5/6rEo7aQYq31J32higcxi3i8xp9MG/r5Ho5NemwZ+g=`
-	param.Power = 20
+	param.Power = 100
 
 	paramJSON, err := json.Marshal(param)
 	if err != nil {

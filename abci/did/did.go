@@ -31,9 +31,9 @@ import (
 
 	"github.com/ndidplatform/smart-contract/abci/code"
 	"github.com/sirupsen/logrus"
-	"github.com/tendermint/abci/types"
 	"github.com/tendermint/iavl"
-	dbm "github.com/tendermint/tmlibs/db"
+	"github.com/tendermint/tendermint/abci/types"
+	dbm "github.com/tendermint/tendermint/libs/db"
 )
 
 var (
